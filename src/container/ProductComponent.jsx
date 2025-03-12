@@ -1,17 +1,25 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
 
 const ProductComponent = () => {
-  return (
-    <Card>
-      <ProductImage />
-      <ProductDetails>
-        <ProductName>Text</ProductName>
-        <ProductPrice>$ 200</ProductPrice>
-        <AddToCartButton>Add to Cart</AddToCartButton>
-      </ProductDetails>
-    </Card>
-  );
+  const products = useSelector((state) => state.allProducts.products);
+  const renderData = products.map((products) => {
+    const { title, description, category, price, image } = products;
+    return (
+      <Card>
+        <ProductImage src={image} />
+        <ProductDetails>
+          <ProductName>Text: {title}</ProductName>
+          <div>{description}</div>
+          <div>{category}</div>
+          <ProductPrice>$ {price}</ProductPrice>
+          <AddToCartButton>Add to Cart</AddToCartButton>
+        </ProductDetails>
+      </Card>
+    );
+  });
+  return <>{renderData}</>;
 };
 
 export default ProductComponent;
